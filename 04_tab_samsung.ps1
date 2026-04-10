@@ -776,7 +776,7 @@ function Read-MTKInfoViaADB($cpuInfo) {
         $bootldr=(& adb shell getprop ro.boot.bootloader 2>$null).Trim()
         $frp1=(& adb shell getprop ro.frp.pst 2>$null).Trim()
         $oemLock=(& adb shell getprop ro.boot.flash.locked 2>$null).Trim()
-        # Deteccion multi-senal UFS vs eMMC
+        # Deteccion multi-señal UFS vs eMMC
         $ufsNode2 = (& adb shell "ls /sys/class/ufs 2>/dev/null").Trim()
         $ufsDev2  = (& adb shell "ls /dev/block/sda 2>/dev/null").Trim()
         $ufsHost2 = (& adb shell "ls /sys/bus/platform/drivers/ufshcd 2>/dev/null").Trim()
@@ -1310,8 +1310,8 @@ $grpA3 = New-GBox $tabAdb "HERRAMIENTAS AVANZADAS" $AX $AY3 $AGW $AGH3 "Lime"
 
 $AL1=@("LEER INFO COMPLETA","REINICIAR SISTEMA","REBOOT RECOVERY","REBOOT BOOTLOADER")
 # 6 botones en 3 filas para REPARACION Y SEGURIDAD
-$AL2=@("AUTOROOT MAGISK","BYPASS BANCARIO","FIX LOGO SAMSUNG","ACTIVAR SIM 2 SAMSUNG",
-       "INSTALAR MAGISK","RESTAURAR BACKUP")
+$AL2=@("AUTOROOT MAGISK","BYPASS BANCARIO","BACKUP ADB","ACTIVAR SIM 2 SAMSUNG",
+       "CLONAR DISPOSITIVO","RESTAURAR BACKUP")
 $AL3=@("BLOQUEAR OTA","REMOVER ADWARE","BACKUP APK","ACTIVAR DIAG")
 
 $btnsA1=Place-Grid $grpA1 $AL1 "Cyan"   2 $ABTW $ABTH $APX $APY $AGX $AGY
@@ -1412,21 +1412,12 @@ $GX_Y2 = $GX_Y1 + $GX_GH + $GX_GGAP
 $GX_Y3 = $GX_Y2 + $GX_GH + $GX_GGAP
 
 # ---- Grupos columna izquierda ----
-# G1 y G3: 2 filas (4 botones). G2: 3 filas (6 botones)
-$GX_GH2 = $GX_PPY + 3*($GX_BTH+$GX_GGY) - $GX_GGY + 14   # altura para 3 filas
-$GX_GH1 = $GX_GH   # G1 mantiene 2 filas
-$GX_GH3 = $GX_GH   # G3 mantiene 2 filas
-
-$GX_Y2B = $GX_Y1 + $GX_GH1 + $GX_GGAP
-$GX_Y3B = $GX_Y2B + $GX_GH2 + $GX_GGAP
-
-$grpG1 = New-GBox $tabGen "FUNCIONES ROOT"          $GX_PAD $GX_Y1  $GX_GW $GX_GH1 "Red"
-$grpG2 = New-GBox $tabGen "PARCHEO DE PARTICIONES"  $GX_PAD $GX_Y2B $GX_GW $GX_GH2 "Cyan"
-$grpG3 = New-GBox $tabGen "HERRAMIENTAS MTK"         $GX_PAD $GX_Y3B $GX_GW $GX_GH3 "Magenta"
+$grpG1 = New-GBox $tabGen "FUNCIONES ROOT"      $GX_PAD $GX_Y1 $GX_GW $GX_GH "Red"
+$grpG2 = New-GBox $tabGen "UTILIDADES FIRMWARE" $GX_PAD $GX_Y2 $GX_GW $GX_GH "Cyan"
+$grpG3 = New-GBox $tabGen "HERRAMIENTAS MTK"    $GX_PAD $GX_Y3 $GX_GW $GX_GH "Magenta"
 
 $GL1=@("BORRAR DATOS","DESHAB. OTA","FLASHEAR ROOT","VERIFICAR ROOT")
-$GL2=@("OEMINFO MDM HONOR","MODEM MI ACCOUNT","EFS SAMSUNG SIM 2","PERSIST MI ACCOUNT",
-       "REPAIR NVDATA","FLASH PARTICION IMG")
+$GL2=@("OEMINFO MDM HONOR","MODEM MI ACCOUNT","EFS SAMSUNG SIM 2","PERSIST MI ACCOUNT")
 $GL3=@("BYPASS MTK","ESCRIBIR IMEI","LEER IMEI","DESBLOQUEAR BL")
 
 $btnsG1=Place-Grid $grpG1 $GL1 "Red"     2 $GX_BTW $GX_BTH $GX_PPX $GX_PPY $GX_GGX $GX_GGY
@@ -1437,10 +1428,8 @@ $btnEditOem  =$btnsG2[0]
 $btnEFSMod   =$btnsG2[1]
 $btnEFSDirec =$btnsG2[2]
 $btnPersist  =$btnsG2[3]
-$btnRepairNV =$btnsG2[4]
-$btnFlashPart=$btnsG2[5]
 
-# ---- Log columna derecha - altura completa igual que ADB ----
+# ---- Log columna derecha — altura completa igual que ADB ----
 $GX_LOGY = 6
 $GX_LOGH = 616
 
@@ -1460,5 +1449,3 @@ $mnuClearGen.ForeColor = [System.Drawing.Color]::OrangeRed
 $mnuClearGen.Add_Click({ $Global:logGen.Clear() })
 $Global:logGen.ContextMenuStrip = $ctxGen
 
-# NOTA: La logica de los botones FIX LOGO SAMSUNG (btnsA2[2]) e INSTALAR MAGISK (btnsA2[4])
-# esta implementada en 05_tab_adb.ps1 que se carga despues de este modulo.

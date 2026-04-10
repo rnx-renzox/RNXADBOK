@@ -79,27 +79,23 @@ $picLogo.SizeMode = [System.Windows.Forms.PictureBoxSizeMode]::Zoom
 $picLogo.BackColor = [System.Drawing.Color]::FromArgb(25,25,25)
 $sidebar.Controls.Add($picLogo)
 
-# Panel monitor centrado en el espacio entre el fin del logo (y=144) y el borde inferior sidebar (y=659)
-# Bloque completo: 7 labels + linea HR + 3 labels = 10 elementos x 28px = 280px + 22px (HR+gaps) = ~302px
-# Espacio disponible: 659-144 = 515px  =>  margen top = (515-302)/2 = 106px  =>  inicio en y = 144+106 = 250
-# Ajuste fino visual: inicio en y=210 para equilibrio optico con el logo
-$Global:lblADB    = New-SideLabel "ADB         : DESCONECTADO"  210
-$Global:lblDisp   = New-SideLabel "DISPOSITIVO : -"             238
-$Global:lblModel  = New-SideLabel "MODELO      : -"             266
-$Global:lblRoot   = New-SideLabel "ROOT        : -"             294
-$Global:lblChip   = New-SideLabel "CHIPSET     : -"             322
-$Global:lblCPU    = New-SideLabel "CPU         : -"             350
-$Global:lblSerial = New-SideLabel "SERIAL      : -"             378
+$Global:lblADB    = New-SideLabel "ADB         : DESCONECTADO"  164
+$Global:lblDisp   = New-SideLabel "DISPOSITIVO : -"             192
+$Global:lblModel  = New-SideLabel "MODELO      : -"             220
+$Global:lblRoot   = New-SideLabel "ROOT        : -"             248
+$Global:lblChip   = New-SideLabel "CHIPSET     : -"             276
+$Global:lblCPU    = New-SideLabel "CPU         : -"             304
+$Global:lblSerial = New-SideLabel "SERIAL      : -"             332
 
 $sideHR = New-Object Windows.Forms.Panel
-$sideHR.Location = New-Object System.Drawing.Point(14, 410)
+$sideHR.Location = New-Object System.Drawing.Point(14, 364)
 $sideHR.Size = New-Object System.Drawing.Size(232, 1)
 $sideHR.BackColor = [System.Drawing.Color]::FromArgb(50,50,50)
 $sidebar.Controls.Add($sideHR)
 
-$Global:lblModo    = New-SideLabel "MODO        : -"  424
-$Global:lblFRP     = New-SideLabel "FRP         : -"  452
-$Global:lblStorage = New-SideLabel "STORAGE     : -"  480
+$Global:lblModo    = New-SideLabel "MODO        : -"  378
+$Global:lblFRP     = New-SideLabel "FRP         : -"  406
+$Global:lblStorage = New-SideLabel "STORAGE     : -"  434
 
 #----------------------------------------------------------
 # TABS
